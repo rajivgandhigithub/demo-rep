@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 This is mt first line
 Second line added
+=======
+This is my first line
+>>>>>>> 8df62f56354dc08e1f348e1e891abfdc2d4d269f
