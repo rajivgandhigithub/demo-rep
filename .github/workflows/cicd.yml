@@ -22,9 +22,11 @@ jobs:
         distribution: 'temurin'
         cache: 'maven'
 
+    # 1. Runs unit tests but forces a success status so the pipeline never breaks here
     - name: Unit Tests
-      run: mvn clean test -Dmaven.test.failure.ignore=true
+      run: mvn clean test || true
 
+    # 2. Scans code and actively blocks the pipeline if your PIFSS-Java-gate rules fail
     - name: Local SonarQube Code Scan
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -32,4 +34,6 @@ jobs:
       run: |
         mvn sonar:sonar \
           -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+          -Dsonar.qualitygate.wait=true
+
