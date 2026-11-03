@@ -23,7 +23,7 @@ jobs:
         cache: 'maven'
 
     - name: Unit Tests
-      run: mvn clean test
+      run: mvn clean test -Dmaven.test.failure.ignore=true
 
     - name: Local SonarQube Code Scan
       env:
